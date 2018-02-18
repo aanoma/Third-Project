@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en" class=" w-100 h-auto" xmlns="http://www.w3.org/1999/html">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Meitantei Conan</title>
+</head>
+<style>
+    p,li{
+        color:   #0d0b10;
+    }
+
+    .btn{
+        background-color: #0d0b10;
+    }
+    a:hover{
+        color: lightgray;
+    }
+    .btn:hover{
+        background-color: rgba(98,91,98,62);
+    }
+    .card,.list-group-item{
+        color: black;
+        background-color: rgba(98,91,98,2);
+    }
+    .sidebar{
+        background-color: rgba(98,91,98,0.25);
+    }
+    .navbar-brand{
+        color: rgba(98,91,98,2);
+    }
+    a{
+        color:rgb(63,53,77)
+    }
+
+</style>
+<body class=" w-100 h-auto" background="https://i.imgur.com/qJhugJE.png">
+
+<div class="row w-100 h-auto">
+    <a class="navbar-brand ml-4 " href="/">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Detective_Conan_logo.svg/2000px-Detective_Conan_logo.svg.png" width="250" height="75" class="d-inline-block align-top" alt="">
+    </a>
+    <a class="navbar-brand ml-4" href="/characters">Characters</a>
+    <a class="navbar-brand ml-4" href="/others">Images</a>
+
+</div>
+<div class="col-md-12" id="root" >
+    <div class="row mt-4 mb-4">
+
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Add Character</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <form>
+                            <div class="form-group">
+                                <label >Name</label>
+                                <input v-model="newCharacter.name" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label >Age</label>
+                                <input v-model="newCharacter.age" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label >Birthday</label>
+                                <input v-model="newCharacter.birthday" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label >Gender</label>
+                                <input v-model="newCharacter.gender" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Image Link</label>
+                                <input v-model="newCharacter.image" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Wiki Link</label>
+                                <input v-model="newCharacter.link" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Story</label>
+                                <input v-model="newCharacter.story" class="form-control"></input>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" @click="addChar">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card ml-2 mt-2 mb-2" style="width: 18rem;" v-for="character in characters">
+               <img class="card-img-top" :src="character.image" alt="Card image cap">
+               <div class="card-body">
+                   <h5 class="card-title">{{character.name}}</h5>
+                   <p class="card-text">{{character.story.substr(0,99)}}...</p>
+
+                   <a :href="character.link" class="card-link">Read more</a>
+               </div>
+               <ul class="list-group list-group-flush">
+                   <li class="list-group-item">{{character.gender}}</li>
+                   <li class="list-group-item">{{character.age}}</li>
+                   <li class="list-group-item">{{character.birthday}}</li>
+               </ul>
+               <div class="card-body">
+
+               </div>
+
+       </div>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-secondary"  data-toggle="modal" data-target="#exampleModalCenter">+<br>A<br>D<br>D</button>
+
+    </div>
+
+
+
+</div>
+
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script>
+
+
+    var app=new Vue({
+        el: '#root',
+        data: {
+            characters: [],
+            newCharacter: {
+                name:"" ,
+                story: "",
+                birthday: "",
+                age: "",
+                gender: "",
+                image:"",
+                link:""
+
+            }
+        },
+        methods: {
+            addChar:function () {
+                if (this.newCharacter.name!="" && this.newCharacter.story!="" && this.newCharacter.birthday!="" && this.newCharacter.age!="" && this.newCharacter.gender!="" && this.newCharacter.image!="" && this.newCharacter.link!=""){
+                    alert("Saved")
+                axios.post('/api/characters', {
+                    character: this.newCharacter
+                })
+                    .then(function (response) {
+                        console.log(response);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+                } else {
+                    alert("Required field cannot be left blank")
+                }
+
+            }
+
+        },  mounted: function () {
+            axios.get('/api/characters').then(function(response){
+                app.characters=(response.data);
+            });
+        }
+
+
+    })
+
+
+
+
+
+</script>
+</body>
+</html>

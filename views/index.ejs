@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en" class=" w-100 h-auto" xmlns="http://www.w3.org/1999/html">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <title>Meitantei Conan</title>
+</head>
+<style>
+  p,li{
+    color:   #0d0b10;
+  }
+
+  .btn{
+    background-color: #0d0b10;
+  }
+  a:hover{
+    color: lightgray;
+  }
+  .btn:hover{
+    background-color: rgba(98,91,98,62);
+  }
+  .card,.list-group-item{
+    background-color: rgba(98,91,98,2);
+  }
+  .sidebar{
+    background-color: rgba(98,91,98,0.25);
+  }
+  .navbar-brand{
+    color: rgba(98,91,98,2);
+  }
+
+</style>
+<body class=" w-100 h-auto" background="https://i.imgur.com/qJhugJE.png">
+
+<div class="row w-100 h-auto">
+  <a class="navbar-brand ml-4 " href="/">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Detective_Conan_logo.svg/2000px-Detective_Conan_logo.svg.png" width="250" height="75" class="d-inline-block align-top" alt="">
+  </a>
+  <a class="navbar-brand ml-4" href="/characters">Characters</a>
+  <a class="navbar-brand ml-4" href="/others">Images</a>
+</div>
+<div class="col-md-9" id="root" >
+  <div class="row mt-4">
+    <div class="col-md-4">
+      <img v-bind:src="items.image_url" class="card-img-top" alt="Card image cap">
+    </div>
+    <div class="col-md-8 card mb-5">
+      <h5 class="card-title mt-2" style="color: #0d0b10">{{items.title}}</h5>
+      <p class="card-text">Aired: {{items.aired_string}} </br> Broadcast: {{items.broadcast}} </br>duration: {{items.duration}} </br>Rating: {{items.rating}} </br>Score: {{items.score}} </p>
+      <p class="card-text">{{items.synopsis}}</p>
+      <a v-bind:href="items.link_canonical" class="btn btn-dark mb-3" >Go To MAL</a>
+    </div>
+  </div>
+
+
+
+</div>
+
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script>
+
+    var app=new Vue({
+        el: '#root',
+        data: {
+            items: []
+        },
+        methods: {
+
+        }
+    })
+
+    axios.get('/api/anime').then(function(response){
+        app.items=(response.data);
+    });
+
+
+
+</script>
+</body>
+</html>
